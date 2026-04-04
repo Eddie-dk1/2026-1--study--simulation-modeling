@@ -21,13 +21,13 @@ SRC_ZIP="$OUT_DIR/simulation-modeling--lab04--sources.zip"
 
 pandoc -f markdown "$REPORT_MD" --resource-path="$REPORT_DIR:$REPORT_DIR/image:$REPORT_DIR/_resources" -o "$REPORT_DOCX"
 
-# Visual PDF for guaranteed image visibility.
-python3 "$ROOT_DIR/tools/make_visual_pdf.py" \
-  --title "Отчёт ЛР4" \
-  --subtitle "Иллюстрации и результаты экспериментов SIR" \
-  --source-dir "$REPORT_DIR/image" \
+# Text-first PDF report generated from report.qmd with embedded illustrations.
+python3 "$ROOT_DIR/tools/make_report_pdf.py" \
+  --source-qmd "$REPORT_MD" \
+  --image-dir "$REPORT_DIR/image" \
   --output "$REPORT_PDF" \
-  --limit 18
+  --title "Отчёт ЛР4" \
+  --subtitle "Агентная SIR-модель: постановка, эксперименты, результаты"
 
 pandoc -f markdown "$PRES_MD" \
   --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" \
