@@ -174,28 +174,19 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Имитационное моделирование</h1>
-<p class="subtitle">Лабораторная работа №4. Реализация SIR-модели в
-агентном подходе</p>
+<p class="subtitle">Лабораторная работа №4. SIR-модель в агентном
+подходе</p>
 <p class="author">true</p>
 <p class="date">today</p>
 </header>
-<h1 id="информация">Информация</h1>
+<h1 id="титульный-слайд">Титульный слайд</h1>
 <h2 id="докладчик">Докладчик</h2>
-<div class="columns" data-align="center">
-<div class="column" style="width:70%;">
 <ul>
-<li><p>Гашимов Кенан Мухтар оглы</p></li>
-<li><p>Студент</p></li>
-<li><p>Российский университет дружбы народов</p></li>
-<li><p><a
-href="mailto:1032235820@rudn.ru">1032235820@rudn.ru</a></p></li>
-<li><p>Группа: НКНбд-01-23</p></li>
-<li><p>Студенческий билет: 1032235820</p></li>
+<li>Гашимов Кенан Мухтар оглы</li>
+<li>Группа: НКНбд-01-23</li>
+<li>Студенческий билет: 1032235820</li>
+<li>РУДН, Москва</li>
 </ul>
-</div><div class="column" style="width:30%;">
-
-</div>
-</div>
 <h1 id="ссылки">Ссылки</h1>
 <h2 id="github">GitHub</h2>
 <ul>
@@ -205,7 +196,7 @@ class="uri">https://github.com/Eddie-dk1/2026-1--study--simulation-modeling</a><
 <li>Каталог ЛР4: <a
 href="https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/tree/main/labs/lab04"
 class="uri">https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/tree/main/labs/lab04</a></li>
-<li>Релиз: <a
+<li>Релиз <code>lab04</code>: <a
 href="https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04"
 class="uri">https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04</a></li>
 </ul>
@@ -217,249 +208,140 @@ class="uri">https://gitverse.ru/Kenan/2026-1--study--simulation-modeling</a></li
 <li>Каталог ЛР4: <a
 href="https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/content/main/labs/lab04"
 class="uri">https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/content/main/labs/lab04</a></li>
-<li>Релиз: <a
+<li>Релиз <code>lab04</code>: <a
 href="https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04"
 class="uri">https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04</a></li>
 </ul>
-<h1 id="цель-и-задачи">Цель и задачи</h1>
+<h1 id="цель-и-план">Цель и план</h1>
 <h2 id="цель-работы">Цель работы</h2>
 <ul>
-<li>Реализовать агентную модель SIR средствами Agents.jl</li>
-<li>Организовать проект в структуре DrWatson</li>
-<li>Выполнить серию вычислительных экспериментов</li>
-<li>Подготовить literate-версии скриптов и производные форматы</li>
+<li>Реализовать и исследовать эпидемиологическую SIR-модель в агентном
+подходе.</li>
+<li>Провести серию экспериментов: базовый запуск, сканирование
+параметров, миграция, гетерогенность, карантин, оптимизация.</li>
+<li>Подготовить воспроизводимые артефакты: код, отчёт, презентация,
+релиз.</li>
 </ul>
-<h2 id="задание">Задание</h2>
+<h2 id="план-презентации">План презентации</h2>
 <ol type="1">
-<li>Создать проект и установить пакеты</li>
-<li>Реализовать SIR-модель в агентном подходе</li>
-<li>Выполнить базовые и параметрические эксперименты</li>
-<li>Сгенерировать clean, notebook и Markdown-версии</li>
-<li>Выполнить все дополнительные задания</li>
+<li>Теоретическая основа SIR и стек инструментов.</li>
+<li>Основные эксперименты и результаты.</li>
+<li>Дополнительные задания.</li>
+<li>Выводы и итоговые ссылки.</li>
 </ol>
-<h1 id="теоретическое-введение">Теоретическое введение</h1>
-<h2 id="модель-sir-и-агентный-подход">Модель SIR и агентный подход</h2>
+<h1 id="теоретическая-база">Теоретическая база</h1>
+<h2 id="модель-sir">Модель SIR</h2>
 <ul>
-<li>Классы модели: <code>S</code>, <code>I</code>, <code>R</code></li>
-<li>В работе каждый человек моделируется как отдельный агент</li>
-<li>Между городами допускается миграция</li>
-<li>Можно добавлять гетерогенность и карантинные правила</li>
-<li>Инструменты: Agents.jl, DrWatson, Literate.jl</li>
+<li>Классы агентов: <code>S</code> (susceptible), <code>I</code>
+(infected), <code>R</code> (recovered).</li>
+<li>В агентном подходе каждый человек моделируется отдельно.</li>
+<li>В модель добавлены механики: миграция, гетерогенность, карантин,
+реинфекция.</li>
 </ul>
-<h2 id="базовые-параметры">Базовые параметры</h2>
+<h2 id="инструменты">Инструменты</h2>
 <ul>
-<li>Численность городов: <code>[1000, 1000, 1000]</code></li>
-<li><code>beta_und = 0.5</code></li>
-<li><code>beta_det = 0.05</code></li>
-<li><code>infection_period = 14</code></li>
-<li><code>detection_time = 7</code></li>
-<li><code>death_rate = 0.02</code></li>
-<li>Для базового запуска <code>R_0 = 7</code></li>
+<li>Julia + Agents.jl</li>
+<li>DrWatson (структура проекта)</li>
+<li>Literate.jl (генерация <code>.jl</code>, <code>.ipynb</code>,
+<code>.md</code>)</li>
+<li>BlackBoxOptim (оптимизационные сценарии)</li>
 </ul>
-<h2 id="литературное-программирование">Литературное
-программирование</h2>
-<ul>
-<li>Исходные файлы оформлены в виде <code>*_literate.jl</code></li>
-<li>Из одного файла генерируются:
-<ul>
-<li>clean <code>.jl</code></li>
-<li><code>.ipynb</code></li>
-<li><code>.md</code></li>
-</ul></li>
-<li>Инструмент генерации: <code>Literate.jl</code></li>
-<li>Такой подход обеспечивает воспроизводимость и единый источник кода и
-документации</li>
-</ul>
-<h1 id="настройка-окружения">Настройка окружения</h1>
-<h2 id="инициализация-проекта">Инициализация проекта</h2>
+<h1 id="подготовка-окружения">Подготовка окружения</h1>
+<h2 id="инициализация">Инициализация</h2>
 <p><img src="image/0julia.png" style="width:48.0%" /> <img
 src="image/1drwatson.png" style="width:48.0%" /></p>
-<p>На этом этапе запускается Julia и подключается пакет DrWatson для
-организации воспроизводимого проекта.</p>
-<h2 id="создание-и-активация-проекта">Создание и активация проекта</h2>
 <p><img src="image/2init_proj.png" style="width:48.0%" /> <img
 src="image/4pkg_activate.png" style="width:48.0%" /></p>
-<p>Проект создаётся в стандартной структуре DrWatson, после чего
-активируется рабочее окружение Julia.</p>
 <h2 id="установка-зависимостей">Установка зависимостей</h2>
 <p><img src="image/5pkg_add.png" style="width:48.0%" /> <img
 src="image/6pkg_finished.png" style="width:48.0%" /></p>
-<p>После установки пакетов становятся доступны Agents.jl, Literate.jl,
-CSV, JLD2 и инструменты оптимизации.</p>
 <h1 id="основные-эксперименты">Основные эксперименты</h1>
-<h2 id="базовый-запуск-модели">Базовый запуск модели</h2>
-<p><img src="image/7.0sir_run_basic.jl.png" style="width:45.0%" /> <img
-src="image/7.1sir_basic_dynamics.png" style="width:50.0%" /></p>
+<h2 id="базовый-запуск-sir">Базовый запуск SIR</h2>
+<p><img src="image/7.0sir_run_basic.jl.png" style="width:42.0%" /> <img
+src="image/7.1sir_basic_dynamics.png" style="width:54.0%" /></p>
 <ul>
-<li>Базовый сценарий показывает рост, пик и спад числа
-инфицированных</li>
-<li>Общая численность уменьшается из-за смертности</li>
-<li>Результат согласуется с <code>R_0 &gt; 1</code></li>
-<li>Параметры задают размеры городов, заразность, длительность болезни и
-число шагов моделирования</li>
+<li>Наблюдается характерная динамика: рост заражённых, пик, спад.</li>
+<li>Для базовой конфигурации <code>R0 &gt; 1</code>, эпидемия
+развивается.</li>
 </ul>
-<h2 id="производные-форматы-базового-скрипта">Производные форматы
-базового скрипта</h2>
+<h2 id="производные-форматы-literate">Производные форматы
+(Literate)</h2>
 <p><img src="image/8sir_run_basic_clean.png" style="width:32.0%" /> <img
 src="image/9sir_run_basic_literate.md.png" style="width:32.0%" /> <img
 src="image/10sir_run_basic_literate.ipynb.png"
 style="width:32.0%" /></p>
-<p>Из literate-скрипта были получены clean-версия, Markdown-документация
-и notebook.</p>
-<h2 class="smaller"
-id="исследование-коэффициента-заразности">Исследование коэффициента
-заразности</h2>
-<p><img src="image/11.0sir_scan_beta.jl.png" style="width:36.0%" /> <img
-src="image/11.1beta_scan.png" style="width:58.0%" /></p>
+<h2 id="сканирование-параметра-beta">Сканирование параметра
+<code>beta</code></h2>
+<p><img src="image/11.0sir_scan_beta.jl.png" style="width:38.0%" /> <img
+src="image/11.1beta_scan.png" style="width:56.0%" /></p>
 <ul>
-<li>При <code>beta = 0.1</code> выраженной вспышки нет</li>
-<li>При <code>beta &gt;= 0.2</code> наблюдается резкий рост пика</li>
-<li>Это подтверждает существование порога эпидемии</li>
-<li>В CSV фиксируются <code>beta</code>, <code>peak</code>,
-<code>deaths</code>, <code>final_inf</code></li>
+<li>При увеличении <code>beta</code> растут пик заражения и риск тяжёлой
+волны.</li>
+<li>Пороговая зона между низкими и средними значениями <code>beta</code>
+выражена явно.</li>
 </ul>
-<h2 id="таблица-и-производные-форматы-для-sir_scan_beta">Таблица и
-производные форматы для <code>sir_scan_beta</code></h2>
-<p><img src="image/11.2beta_scan_all.csv.png" style="width:35.0%" />
-<img src="image/12sir_scan_beta_literate_clean.png"
-style="width:28.0%" /> <img
-src="image/13sir_scan_beta_literate.ipynb.png"
-style="width:28.0%" /></p>
-<p>CSV-файл фиксирует все прогоны, а производные форматы обеспечивают
-воспроизводимость исследования.</p>
-<h2 class="smaller" id="исследование-миграции">Исследование
-миграции</h2>
-<p><img src="image/15.0sir_migration_effect.png" style="width:34.0%" />
-<img src="image/15.1migration_effect.png" style="width:55.0%" /></p>
+<h2 id="миграция-между-городами">Миграция между городами</h2>
+<p><img src="image/15.0sir_migration_effect.png" style="width:36.0%" />
+<img src="image/15.1migration_effect.png" style="width:58.0%" /></p>
 <ul>
-<li>Нулевая миграция даёт локальную вспышку</li>
-<li>Ненулевая миграция ускоряет распространение между городами</li>
-<li>Среди ненулевых значений минимальное среднее время до пика
-достигается при <code>0.2</code></li>
-<li>В CSV: <code>migration_intensity</code>, <code>peak_time</code>,
-<code>peak_value</code></li>
+<li>Миграция ускоряет распространение инфекции между городами.</li>
+<li>Метрики: время до пика и величина пика.</li>
 </ul>
 <h2 id="оптимизация-параметров">Оптимизация параметров</h2>
 <p><img src="image/19sir_optimize_parameters.png"
-style="width:40.0%" /></p>
+style="width:42.0%" /></p>
 <ul>
-<li>Выполнен поиск параметров модели с минимизацией целевой функции</li>
-<li>Анализируется влияние <code>beta_und</code>,
-<code>detection_time</code> и <code>death_rate</code></li>
-<li>Оптимизация позволяет подобрать более благоприятный сценарий
-распространения</li>
+<li>Поиск параметров, снижающих эпидемический ущерб.</li>
+<li>Используется стохастическая оптимизация с целевой функцией по
+метрикам вспышки.</li>
 </ul>
-<h2 id="производные-форматы-для-sir_optimize_parameters">Производные
-форматы для <code>sir_optimize_parameters</code></h2>
-<p><img src="image/20sir_optimize_parameters_clean.png"
-style="width:30.0%" /> <img
-src="image/21sir_optimize_parameters_literate.md.png"
-style="width:30.0%" /> <img
-src="image/22sir_optimize_parameters_literate.ipynb.png"
-style="width:30.0%" /></p>
-<p>Для эксперимента с оптимизацией также подготовлены clean-версия,
-Markdown и notebook.</p>
 <h2 id="итоговая-визуализация">Итоговая визуализация</h2>
 <p><img src="image/23.0sir_visualize_dynamics.png"
-style="width:18.0%" /> <img src="image/23.1comprehensive_analysis.png"
-style="width:36.0%" /></p>
-<p>Сводный график объединяет пик заражения, число умерших и долю
-выздоровевших в зависимости от <code>beta</code>.</p>
-<h2 id="производные-форматы-и-документация">Производные форматы и
-документация</h2>
-<p><img src="image/24sir_visualize_dynamics_clean.png"
-style="width:30.0%" /> <img
-src="image/25sir_visualize_dynamics_literate.ipynb.png"
-style="width:30.0%" /> <img
-src="image/26sir_visualize_dynamics_literate.md.png"
-style="width:30.0%" /></p>
+style="width:26.0%" /> <img src="image/23.1comprehensive_analysis.png"
+style="width:64.0%" /></p>
 <ul>
-<li>Для каждого эксперимента получены clean-скрипт, notebook и
-Markdown-документация</li>
-<li>Это упрощает проверку, повторение вычислений и включение материалов
-в отчёт</li>
+<li>Итоговые графики сводят базовые и расширенные сценарии в единую
+картину.</li>
 </ul>
 <h1 id="дополнительные-задания">Дополнительные задания</h1>
-<h2 id="обзор-дополнительных-заданий">Обзор дополнительных заданий</h2>
+<h2 id="список-выполненных-заданий">Список выполненных заданий</h2>
 <ol type="1">
-<li>Базовый анализ <code>R_0</code></li>
-<li>Порог эпидемии</li>
-<li>Гетерогенность городов</li>
-<li>Влияние миграции</li>
-<li>Карантинные меры</li>
-<li>Оптимизация с ограничением на пик</li>
+<li>Оценка <code>R0</code> и порога эпидемии.</li>
+<li>Исследование гетерогенности.</li>
+<li>Исследование миграции.</li>
+<li>Введение карантинных мер.</li>
+<li>Оптимизация с ограничением на пик заражения.</li>
 </ol>
-<h2 id="задания-1-и-2-r_0-и-порог-эпидемии">Задания 1 и 2:
-<code>R_0</code> и порог эпидемии</h2>
-<p><img src="image/7.1sir_basic_dynamics.png" style="width:45.0%" />
-<img src="image/11.2beta_scan_all.csv.png" style="width:45.0%" /></p>
-<ul>
-<li>Для базового сценария <code>R_0 = 7</code></li>
-<li>Практический порог возникновения эпидемии лежит между
-<code>beta = 0.1</code> и <code>beta = 0.2</code></li>
-<li>Теоретический порог <code>R_0 = 1</code> даёт
-<code>beta ≈ 0.071</code></li>
-</ul>
-<h2 id="задание-3-эффект-гетерогенности">Задание 3: эффект
-гетерогенности</h2>
+<h2 id="гетерогенность">Гетерогенность</h2>
 <p><img src="image/27.0sir_heterogeneity_effect.jl.png"
 style="width:32.0%" /> <img src="image/27.1heterogeneity_effect.png"
 style="width:32.0%" /> <img
 src="image/27.3heterogeneity_summary.csv.png" style="width:32.0%" /></p>
-<ul>
-<li>Для городов заданы разные <code>beta</code>: <code>0.3</code>,
-<code>0.5</code>, <code>0.8</code></li>
-<li>Пики заражения возрастают вместе с заразностью города</li>
-<li>Это подтверждает влияние неоднородности параметров на общую
-динамику</li>
-<li>В сводной таблице приведены <code>beta_und</code>,
-<code>beta_det</code> и <code>peak_infected</code> по городам</li>
-</ul>
-<h2 id="задание-4-миграция">Задание 4: миграция</h2>
-<p><img src="image/15.1migration_effect.png" style="width:48.0%" /> <img
-src="image/15.2migration_scan_all.csv.png" style="width:48.0%" /></p>
-<ul>
-<li>Нулевая миграция не отражает межгородское распространение</li>
-<li>Среди ненулевых значений минимальное среднее время до пика
-достигается при интенсивности <code>0.2</code></li>
-<li>Миграция существенно влияет на скорость охвата всей системы</li>
-</ul>
-<h2 id="задание-5-карантинные-меры">Задание 5: карантинные меры</h2>
-<p><img src="image/31.1quarantine_effect.png" style="width:34.0%" />
-<img src="image/31.4quarantine_summary.csv.png"
-style="width:20.0%" /></p>
-<ul>
-<li>Карантин блокирует выезд из города после превышения порога
-инфицированности</li>
-<li>В эксперименте пик сдвигается с 16-го на 17-й день</li>
-<li>Число умерших уменьшается с 555 до 546</li>
-<li>Сводная таблица содержит <code>scenario</code>,
-<code>peak_infected</code>, <code>peak_time</code>,
-<code>total_deaths</code></li>
-</ul>
-<h2 id="задание-6-оптимизация-с-ограничением">Задание 6: оптимизация с
-ограничением</h2>
+<h2 id="карантин">Карантин</h2>
+<p><img src="image/31.0sir_quarantine_effect.png" style="width:32.0%" />
+<img src="image/31.1quarantine_effect.png" style="width:32.0%" /> <img
+src="image/31.4quarantine_summary.csv.png" style="width:32.0%" /></p>
+<h2 id="оптимизация-с-ограничением">Оптимизация с ограничением</h2>
 <p><img src="image/35sir_optimize_with_constraint.png"
-style="width:40.0%" /> <img
+style="width:45.0%" /> <img
 src="image/38.1optimization_with_constraint.csv.png"
-style="width:50.0%" /></p>
+style="width:45.0%" /></p>
+<h1 id="итоги">Итоги</h1>
+<h2 id="выводы">Выводы</h2>
 <ul>
-<li>Цель: минимизировать смертность при <code>peak &lt;= 0.3</code></li>
-<li>Найдено решение с <code>peak_infected ≈ 0.2003</code></li>
-<li>Ограничение выполнено: <code>satisfies_constraint = true</code></li>
-<li>В таблице также приведены найденные <code>beta_und</code>,
-<code>detection_time</code> и <code>death_rate</code></li>
+<li>Реализована и проверена агентная SIR-модель с расширениями.</li>
+<li>Эксперименты подтвердили ожидаемые закономерности
+распространения.</li>
+<li>Подготовлены репозиторий, релиз и материалы для защиты.</li>
 </ul>
-<h1 id="выводы">Выводы</h1>
-<h2 id="итоги-работы">Итоги работы</h2>
+<h2 id="финальные-ссылки">Финальные ссылки</h2>
 <ul>
-<li>Реализована агентная SIR-модель для трёх городов</li>
-<li>Выполнены базовые и параметрические эксперименты</li>
-<li>Добавлен эксперимент по оптимизации параметров модели</li>
-<li>Подготовлены literate-версии и производные форматы</li>
-<li>Все дополнительные задания описаны и проанализированы</li>
-<li>Наиболее содержательные эффекты: порог эпидемии, влияние миграции,
-гетерогенность и карантин</li>
+<li>GitHub Release: <a
+href="https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04"
+class="uri">https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04</a></li>
+<li>GitVerse Release: <a
+href="https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04"
+class="uri">https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04</a></li>
 </ul>
 </body>
 </html>
