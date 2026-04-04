@@ -21,12 +21,21 @@ SRC_ZIP="$OUT_DIR/simulation-modeling--lab04--sources.zip"
 
 pandoc -f markdown "$REPORT_MD" --resource-path="$REPORT_DIR:$REPORT_DIR/image:$REPORT_DIR/_resources" -o "$REPORT_DOCX"
 
-pandoc -f markdown "$REPORT_MD" --resource-path="$REPORT_DIR:$REPORT_DIR/image:$REPORT_DIR/_resources" -t plain -o "$TMP_DIR/report-lab4.txt"
-cupsfilter -m application/pdf "$TMP_DIR/report-lab4.txt" > "$REPORT_PDF"
+# Visual PDF for guaranteed image visibility.
+python3 "$ROOT_DIR/tools/make_visual_pdf.py" \
+  --title "Отчёт ЛР4" \
+  --subtitle "Иллюстрации и результаты экспериментов SIR" \
+  --source-dir "$REPORT_DIR/image" \
+  --output "$REPORT_PDF" \
+  --limit 18
 
 pandoc -f markdown "$PRES_MD" --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" -s -o "$PRES_HTML"
-pandoc -f markdown "$PRES_MD" --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" -t plain -o "$TMP_DIR/presentation-lab4.txt"
-cupsfilter -m application/pdf "$TMP_DIR/presentation-lab4.txt" > "$PRES_PDF"
+python3 "$ROOT_DIR/tools/make_visual_pdf.py" \
+  --title "Презентация ЛР4" \
+  --subtitle "Ключевые слайды и визуализации экспериментов" \
+  --source-dir "$PRES_DIR/image" \
+  --output "$PRES_PDF" \
+  --limit 14
 
 zip -r "$SRC_ZIP" \
   labs/lab04/sources \
