@@ -1,0 +1,13 @@
+project:
+  title: "presentation"
+  output-dir: "_output"
+
+standalone: true
+self-contained: true
+
+lang: ru-RU
+format:
+  html:
+    self-contained: true
+  pdf:
+    toc: false
