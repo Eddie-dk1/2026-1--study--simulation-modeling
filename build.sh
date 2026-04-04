@@ -10,6 +10,8 @@ mkdir -p "$OUT_DIR" "$TMP_DIR"
 
 REPORT_MD="$LAB_DIR/report/simulation-modeling--lab04--report.qmd"
 PRES_MD="$LAB_DIR/presentation/simulation-modeling--lab04--presentation.qmd"
+REPORT_DIR="$LAB_DIR/report"
+PRES_DIR="$LAB_DIR/presentation"
 
 REPORT_DOCX="$OUT_DIR/simulation-modeling--lab04--report.docx"
 REPORT_PDF="$OUT_DIR/simulation-modeling--lab04--report.pdf"
@@ -17,13 +19,13 @@ PRES_HTML="$OUT_DIR/simulation-modeling--lab04--presentation.html"
 PRES_PDF="$OUT_DIR/simulation-modeling--lab04--presentation.pdf"
 SRC_ZIP="$OUT_DIR/simulation-modeling--lab04--sources.zip"
 
-pandoc -f markdown "$REPORT_MD" -o "$REPORT_DOCX"
+pandoc -f markdown "$REPORT_MD" --resource-path="$REPORT_DIR:$REPORT_DIR/image:$REPORT_DIR/_resources" -o "$REPORT_DOCX"
 
-pandoc -f markdown "$REPORT_MD" -t plain -o "$TMP_DIR/report-lab4.txt"
+pandoc -f markdown "$REPORT_MD" --resource-path="$REPORT_DIR:$REPORT_DIR/image:$REPORT_DIR/_resources" -t plain -o "$TMP_DIR/report-lab4.txt"
 cupsfilter -m application/pdf "$TMP_DIR/report-lab4.txt" > "$REPORT_PDF"
 
-pandoc -f markdown "$PRES_MD" -s -o "$PRES_HTML"
-pandoc -f markdown "$PRES_MD" -t plain -o "$TMP_DIR/presentation-lab4.txt"
+pandoc -f markdown "$PRES_MD" --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" -s -o "$PRES_HTML"
+pandoc -f markdown "$PRES_MD" --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" -t plain -o "$TMP_DIR/presentation-lab4.txt"
 cupsfilter -m application/pdf "$TMP_DIR/presentation-lab4.txt" > "$PRES_PDF"
 
 zip -r "$SRC_ZIP" \

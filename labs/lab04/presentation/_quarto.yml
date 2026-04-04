@@ -4,10 +4,41 @@ project:
 
 standalone: true
 self-contained: true
+slide-level: 2
 
+## Generic options
 lang: ru-RU
+crossref:
+  lof-title: Список иллюстраций
+  lot-title: Список таблиц
+  lol-title: Листинги
+## Formats
 format:
-  html:
-    self-contained: true
-  pdf:
-    toc: false
+  ### Pdf output format
+  beamer:
+    pdf-engine: xelatex
+    toc: true
+    toc-title: Содержание
+    number-sections: true
+    colorlinks: false
+    toc-depth: 2
+    aspectratio: 169
+    section-titles: true
+    incremental: false
+    navigation: horizontal
+    csquotes: true
+    indent: true
+    include-in-header:
+      - file: _resources/tex/beamer.tex
+    #### Language
+    babel-lang: russian
+    babel-otherlangs: english
+  ### Html output
+  revealjs:
+    transition: slide
+    margin: 0.2
+    smaller: true
+    slide-number: true
+    output-ext: html
+    theme: beige
+    logo: _resources/image/logo_rudn.png
