@@ -25,9 +25,9 @@
 ## Репозитории
 
 - GitHub: https://github.com/REPLACE_USER/REPLACE_REPO
-- GitHub релиз: https://github.com/REPLACE_USER/REPLACE_REPO/releases/tag/v1.0.0
-- GitVerse: https://gitverse.ru/REPLACE_USER/REPLACE_REPO
-- GitVerse релиз: https://gitverse.ru/REPLACE_USER/REPLACE_REPO/releases/tag/v1.0.0
+- GitHub релиз: https://github.com/REPLACE_USER/REPLACE_REPO/releases/tag/lab04
+- GitVerse: https://gitverse.ru/Kenan/2026-1--study--simulation-modeling
+- GitVerse релиз: https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04
 
 ## Файлы для прикрепления и релиза
 
