@@ -29,7 +29,12 @@ python3 "$ROOT_DIR/tools/make_visual_pdf.py" \
   --output "$REPORT_PDF" \
   --limit 18
 
-pandoc -f markdown "$PRES_MD" --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" -s -o "$PRES_HTML"
+pandoc -f markdown "$PRES_MD" \
+  --resource-path="$PRES_DIR:$PRES_DIR/image:$PRES_DIR/_resources" \
+  -s \
+  --embed-resources \
+  --standalone \
+  -o "$PRES_HTML"
 python3 "$ROOT_DIR/tools/make_visual_pdf.py" \
   --title "Презентация ЛР4" \
   --subtitle "Ключевые слайды и визуализации экспериментов" \
