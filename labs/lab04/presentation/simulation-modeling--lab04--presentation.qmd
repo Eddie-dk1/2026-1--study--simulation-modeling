@@ -38,6 +38,20 @@ date-format: "YYYY-MM-DD"
 ::::::::::::::
 
 
+# Ссылки
+
+## GitHub
+
+- Репозиторий: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling>
+- Каталог ЛР4: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/tree/main/labs/lab04>
+- Релиз: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04>
+
+## GitVerse
+
+- Репозиторий: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling>
+- Каталог ЛР4: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/content/main/labs/lab04>
+- Релиз: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04>
+
 # Цель и задачи
 
 ## Цель работы

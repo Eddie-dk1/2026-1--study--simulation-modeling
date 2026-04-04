@@ -1,40 +1,47 @@
-## Скринкасты
+# 🔗 Ссылки по лабораторной работе №4
 
-- ФИО: Гашимов Кенан Мухтар оглы
-- Группа: НКНбд-01-23
-- Студенческий билет: 1032235820
+## 👤 Студент
 
-- [Rutube плейлист](https://rutube.ru/plst/REPLACE_WITH_YOUR_PLAYLIST_ID/)
-- [VKvideo плейлист](https://vkvideo.ru/playlist/REPLACE_WITH_YOUR_PLAYLIST_ID)
+- ФИО: **Гашимов Кенан Мухтар оглы**
+- Группа: **НКНбд-01-23**
+- Студенческий билет: **1032235820**
 
-### Отдельные ссылки на каждом хостинге
+## 🧑‍💻 GitHub
 
-- Выполнение лабораторной работы:
-  - Rutube: https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/
-  - VKvideo: https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID
-- Подготовка отчёта:
-  - Rutube: https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/
-  - VKvideo: https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID
-- Подготовка презентации:
-  - Rutube: https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/
-  - VKvideo: https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID
-- Защита презентации лабораторной работы:
-  - Rutube: https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/
-  - VKvideo: https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID
+- [Основной репозиторий курса](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling)
+- [Директория лабораторной работы №4](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/tree/main/labs/lab04)
+- [Релиз лабораторной работы №4](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04)
+- [ChangeLog](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/commits/main)
 
-## Репозитории
+## 🌍 GitVerse
 
-- GitHub: https://github.com/REPLACE_USER/REPLACE_REPO
-- GitHub релиз: https://github.com/REPLACE_USER/REPLACE_REPO/releases/tag/lab04
-- GitVerse: https://gitverse.ru/Kenan/2026-1--study--simulation-modeling
-- GitVerse релиз: https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04
+- [Основной репозиторий курса](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling)
+- [Директория лабораторной работы №4](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/content/main/labs/lab04)
+- [Релиз лабораторной работы №4](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04)
+- [ChangeLog](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/commits/main)
 
-## Файлы для прикрепления и релиза
+## 📺 RuTube
 
-- Отчёт в markdown: `labs/lab04/report/simulation-modeling--lab04--report.qmd`
-- Отчёт в docx: `labs/lab04/release/simulation-modeling--lab04--report.docx`
-- Отчёт в pdf: `labs/lab04/release/simulation-modeling--lab04--report.pdf`
-- Архив с исходными markdown-материалами: `labs/lab04/release/simulation-modeling--lab04--sources.zip`
-- Презентация в markdown: `labs/lab04/presentation/simulation-modeling--lab04--presentation.qmd`
-- Презентация в html: `labs/lab04/release/simulation-modeling--lab04--presentation.html`
-- Презентация в pdf: `labs/lab04/release/simulation-modeling--lab04--presentation.pdf`
+- [Плейлист лабораторной работы №4](https://rutube.ru/plst/REPLACE_WITH_YOUR_PLAYLIST_ID/)
+- [Выполнение лабораторной работы №4](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
+- [Выполнение дополнительных заданий лабораторной работы №4](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
+- [Подготовка отчёта](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
+- [Подготовка презентации](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
+- [Защита презентации](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
+
+## 📼 VK Video
+
+- [Плейлист лабораторной работы №4](https://vkvideo.ru/playlist/REPLACE_WITH_YOUR_PLAYLIST_ID)
+- [Выполнение лабораторной работы №4](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
+- [Выполнение дополнительных заданий лабораторной работы №4](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
+- [Подготовка отчёта](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
+- [Подготовка презентации](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
+- [Защита презентации](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
+
+## 📎 Файлы релиза
+
+- `labs/lab04/release/simulation-modeling--lab04--report.docx`
+- `labs/lab04/release/simulation-modeling--lab04--report.pdf`
+- `labs/lab04/release/simulation-modeling--lab04--presentation.html`
+- `labs/lab04/release/simulation-modeling--lab04--presentation.pdf`
+- `labs/lab04/release/simulation-modeling--lab04--sources.zip`

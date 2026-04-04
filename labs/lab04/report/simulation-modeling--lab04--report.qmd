@@ -22,6 +22,20 @@ subtitle: "Лабораторная работа №4. Реализация ос
 license: "CC BY"
 ---
 
+# Ссылки по лабораторной работе
+
+## GitHub
+
+- Основной репозиторий курса: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling>
+- Директория лабораторной работы №4: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/tree/main/labs/lab04>
+- Релиз лабораторной работы №4: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04>
+
+## GitVerse
+
+- Основной репозиторий курса: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling>
+- Директория лабораторной работы №4: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/content/main/labs/lab04>
+- Релиз лабораторной работы №4: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04>
+
 # Цель работы
 
 Изучить реализацию эпидемиологической модели SIR в агентном подходе на языке Julia с использованием фреймворка Agents.jl, провести серию вычислительных экспериментов, подготовить literate-версии скриптов и исследовать дополнительные сценарии: порог эпидемии, гетерогенность городов, миграцию, карантин и оптимизацию с ограничением на пик заболеваемости.
