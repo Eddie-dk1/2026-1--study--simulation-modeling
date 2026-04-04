@@ -22,18 +22,18 @@
 
 ## 📺 RuTube
 
-- [Плейлист лабораторной работы №4](https://rutube.ru/plst/REPLACE_WITH_YOUR_PLAYLIST_ID/)
-- [Выполнение лабораторной работы №4](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
-- [Выполнение дополнительных заданий лабораторной работы №4](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
-- [Подготовка отчёта](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
-- [Подготовка презентации](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
-- [Защита презентации](https://rutube.ru/video/REPLACE_WITH_VIDEO_ID/)
+- [Плейлист лабораторной работы №4](https://rutube.ru/plst/1570916)
+- [Выполнение лабораторной работы №4](https://rutube.ru/video/e230a97c778dc4380eed8aa6b6c7dec8/)
+- [Выполнение дополнительных заданий лабораторной работы №4](https://rutube.ru/video/e230a97c778dc4380eed8aa6b6c7dec8/)
+- [Подготовка отчёта](https://rutube.ru/video/ca906f162368016d3336242a0c0f068e/)
+- [Подготовка презентации](https://rutube.ru/video/ca906f162368016d3336242a0c0f068e/)
+- [Защита презентации](https://rutube.ru/video/e230a97c778dc4380eed8aa6b6c7dec8/)
 
 ## 📼 VK Video
 
-- [Плейлист лабораторной работы №4](https://vkvideo.ru/playlist/REPLACE_WITH_YOUR_PLAYLIST_ID)
-- [Выполнение лабораторной работы №4](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
-- [Выполнение дополнительных заданий лабораторной работы №4](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
-- [Подготовка отчёта](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
-- [Подготовка презентации](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
-- [Защита презентации](https://vkvideo.ru/videoREPLACE_OWNER_REPLACE_ID)
+- [Плейлист лабораторной работы №4](https://vkvideo.ru/playlist/-236906473_1/video-236906473_456239019?linked=1)
+- [Выполнение лабораторной работы №4](https://vkvideo.ru/video-236906473_456239019?list=ln-ThHskPk8rN3Bj8lX7z)
+- [Выполнение дополнительных заданий лабораторной работы №4](https://vkvideo.ru/video-236906473_456239019?list=ln-ThHskPk8rN3Bj8lX7z)
+- [Подготовка отчёта](https://vkvideo.ru/video-236906473_456239020)
+- [Подготовка презентации](https://vkvideo.ru/video-236906473_456239020)
+- [Защита презентации](https://vkvideo.ru/video-236906473_456239019?list=ln-ThHskPk8rN3Bj8lX7z)
