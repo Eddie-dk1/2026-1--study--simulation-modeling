@@ -1,0 +1,5 @@
+.DS_Store
+.julia_depot/
+.pydeps/
+__pycache__/
+*.pyc

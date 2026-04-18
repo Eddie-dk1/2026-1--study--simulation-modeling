@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Гашимов Кенан Мухтар оглы" />
+  <meta name="date" content="2026-04-18" />
+  <title>Имитационное моделирование</title>
+  <style type="text/css">
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="https://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="https://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Имитационное моделирование</h1>
+  <p class="subtitle">Лабораторная работа №5. Аппарат сетей Петри</p>
+  <p class="author">
+Гашимов Кенан Мухтар оглы
+  </p>
+  <p class="date">2026-04-18</p>
+</div>
+<div id="информация" class="slide section level1">
+<h1>1. Информация</h1>
+<ul>
+<li>Студент: Гашимов Кенан Мухтар оглы</li>
+<li>Группа: НКНбд-01-23</li>
+<li>Лабораторная работа №5</li>
+<li>Тема: аппарат сетей Петри</li>
+</ul>
+</div>
+<div id="цель-и-задачи" class="slide section level1">
+<h1>2. Цель и задачи</h1>
+<p>Цель работы:</p>
+<ul>
+<li>изучить сети Петри на задаче обедающих философов;</li>
+<li>воспроизвести <code>deadlock</code> в классической постановке;</li>
+<li>устранить его с помощью арбитра;</li>
+<li>получить графики, таблицы, анимацию и literate-артефакты.</li>
+</ul>
+</div>
+<div id="теоретическое-введение" class="slide section level1">
+<h1>3. Теоретическое введение</h1>
+<ul>
+<li>Сеть Петри состоит из позиций, переходов, дуг и маркировки.</li>
+<li>Маркировка определяет текущее состояние модели.</li>
+<li>В задаче обедающих философов позиции описывают философов и
+вилки.</li>
+<li>В классической постановке возможен <code>deadlock</code>.</li>
+<li>Позиция <code>Arbiter</code> запрещает тупиковую конфигурацию.</li>
+</ul>
+</div>
+<div id="структура-проекта" class="slide section level1">
+<h1>4. Структура проекта</h1>
+<ul>
+<li><code>src/DiningPhilosophers.jl</code> — модуль модели.</li>
+<li><code>scripts/dining_philosophers.jl</code> — базовый
+эксперимент.</li>
+<li><code>scripts/dining_philosophers_animation.jl</code> —
+GIF-анимация.</li>
+<li><code>scripts/dining_philosophers_report.jl</code> — итоговый
+сравнительный график.</li>
+<li><code>scripts/dining_philosophers_params.jl</code> — параметрическое
+исследование.</li>
+<li><code>generated/</code> — <code>clean</code>, <code>md</code>,
+<code>ipynb</code>, <code>qmd</code>.</li>
+</ul>
+</div>
+<div id="базовый-эксперимент" class="slide section level1">
+<h1>5. Базовый эксперимент</h1>
+<ul>
+<li><code>N = 5</code></li>
+<li><code>tmax = 50.0</code></li>
+<li>Рассматриваются две сети:
+<ul>
+<li>классическая;</li>
+<li>с арбитром.</li>
+</ul></li>
+<li>Выполнены стохастическое и детерминированное моделирование.</li>
+</ul>
+</div>
+<div id="классическая-сеть" class="slide section level1">
+<h1>6. Классическая сеть</h1>
+<div class="float">
+<img src="../plots/classic_simulation.png" alt="Классическая сеть" />
+<div class="figcaption">Классическая сеть</div>
+</div>
+</div>
+<div id="вывод-по-классической-сети" class="slide section level1">
+<h1>7. Вывод по классической сети</h1>
+<ul>
+<li><code>deadlock = true</code></li>
+<li>число состояний: <code>9</code></li>
+<li>итоговое число голодных философов: <code>5</code></li>
+<li>итоговое число философов в состоянии <code>Eat</code>:
+<code>0</code></li>
+<li>тупиковая маркировка достигнута при <code>t ≈ 2.27</code></li>
+</ul>
+</div>
+<div id="сеть-с-арбитром" class="slide section level1">
+<h1>8. Сеть с арбитром</h1>
+<div class="float">
+<img src="../plots/arbiter_simulation.png" alt="Сеть с арбитром" />
+<div class="figcaption">Сеть с арбитром</div>
+</div>
+</div>
+<div id="вывод-по-сети-с-арбитром" class="slide section level1">
+<h1>9. Вывод по сети с арбитром</h1>
+<ul>
+<li><code>deadlock = false</code></li>
+<li>число состояний: <code>76</code></li>
+<li>в конце моделирования сохраняется активность</li>
+<li>хотя бы один философ остаётся в состоянии <code>Eat</code></li>
+<li><code>Arbiter</code> ограничивает число одновременных попыток
+захвата вилок</li>
+</ul>
+</div>
+<div id="детерминированная-модель" class="slide section level1">
+<h1>10. Детерминированная модель</h1>
+<div class="float">
+<img src="../plots/classic_deterministic.png"
+alt="Классическая детерминированная модель" />
+<div class="figcaption">Классическая детерминированная модель</div>
+</div>
+</div>
+<div id="детерминированная-модель-с-арбитром"
+class="slide section level1">
+<h1>11. Детерминированная модель с арбитром</h1>
+<div class="float">
+<img src="../plots/arbiter_deterministic.png"
+alt="Детерминированная модель с арбитром" />
+<div class="figcaption">Детерминированная модель с арбитром</div>
+</div>
+</div>
+<div id="итоговый-сравнительный-график" class="slide section level1">
+<h1>12. Итоговый сравнительный график</h1>
+<div class="float">
+<img src="../plots/final_report.png"
+alt="Итоговый сравнительный график" />
+<div class="figcaption">Итоговый сравнительный график</div>
+</div>
+</div>
+<div id="интерпретация-итогового-графика" class="slide section level1">
+<h1>13. Интерпретация итогового графика</h1>
+<ul>
+<li>В классической сети все <code>Eat_i</code> быстро исчезают.</li>
+<li>После этого сеть остаётся в тупиковом состоянии.</li>
+<li>В сети с арбитром состояния <code>Eat_i</code> продолжают
+появляться.</li>
+<li>Следовательно, сеть с арбитром сохраняет живость.</li>
+</ul>
+</div>
+<div id="анимация-процесса" class="slide section level1">
+<h1>14. Анимация процесса</h1>
+<ul>
+<li>Построен GIF <code>plots/philosophers_simulation.gif</code>.</li>
+<li>Каждый кадр показывает маркировку сети во времени.</li>
+<li>Анимация иллюстрирует перераспределение фишек между
+состояниями.</li>
+</ul>
+</div>
+<div id="параметрическое-исследование" class="slide section level1">
+<h1>15. Параметрическое исследование</h1>
+<ul>
+<li>Перебраны:
+<ul>
+<li><code>N = 3, 5, 7</code></li>
+<li><code>tmax = 30, 50, 80</code></li>
+<li><code>seed = 123, 124, 125</code></li>
+</ul></li>
+<li>Выполнено <code>54</code> прогона.</li>
+</ul>
+</div>
+<div id="график-параметрического-исследования"
+class="slide section level1">
+<h1>16. График параметрического исследования</h1>
+<div class="float">
+<img src="../plots/dining_params.png"
+alt="Параметрическое исследование" />
+<div class="figcaption">Параметрическое исследование</div>
+</div>
+</div>
+<div id="результаты-параметрического-исследования"
+class="slide section level1">
+<h1>17. Результаты параметрического исследования</h1>
+<ul>
+<li><code>classic</code>: <code>27 / 27</code> запусков завершились
+<code>deadlock</code></li>
+<li><code>arbiter</code>: <code>0 / 27</code> запусков завершились
+<code>deadlock</code></li>
+<li>для классической сети <code>final_eat = 0</code> во всех сериях</li>
+<li>для сети с арбитром в конце часто остаётся хотя бы один философ в
+<code>Eat</code></li>
+</ul>
+</div>
+<div id="literate-артефакты" class="slide section level1">
+<h1>18. Literate-артефакты</h1>
+<p>Сгенерированы:</p>
+<ul>
+<li><code>clean</code>-версии скриптов;</li>
+<li>Markdown-документы;</li>
+<li>Jupyter notebooks;</li>
+<li>Quarto-документы (<code>qmd</code>).</li>
+</ul>
+<p>Каталог: <code>generated/</code>.</p>
+</div>
+<div id="основные-полученные-файлы" class="slide section level1">
+<h1>19. Основные полученные файлы</h1>
+<ul>
+<li><code>data/dining_classic.csv</code></li>
+<li><code>data/dining_arbiter.csv</code></li>
+<li><code>data/dining_params.csv</code></li>
+<li><code>plots/classic_simulation.png</code></li>
+<li><code>plots/arbiter_simulation.png</code></li>
+<li><code>plots/final_report.png</code></li>
+<li><code>plots/dining_params.png</code></li>
+<li><code>plots/philosophers_simulation.gif</code></li>
+</ul>
+</div>
+<div id="выводы" class="slide section level1">
+<h1>20. Выводы</h1>
+<ul>
+<li>Построена сеть Петри для задачи обедающих философов.</li>
+<li>В классической сети подтверждено возникновение
+<code>deadlock</code>.</li>
+<li>Введение арбитра устраняет тупиковую конфигурацию.</li>
+<li>Получены графики, CSV-таблицы, GIF и literate-представления.</li>
+<li>Параметрический анализ подтвердил устойчивость результата.</li>
+</ul>
+</div>
+</body>
+</html>

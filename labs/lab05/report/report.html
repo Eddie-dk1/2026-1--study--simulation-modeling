@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Гашимов Кенан Мухтар оглы" />
+  <meta name="dcterms.date" content="2026-04-18" />
+  <title>Имитационное моделирование</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Имитационное моделирование</h1>
+<p class="subtitle">Лабораторная работа №5. Аппарат сетей Петри</p>
+<p class="author">Гашимов Кенан Мухтар оглы</p>
+<p class="date">2026-04-18</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="цель-работы">Цель работы</h1>
+<p>Изучить аппарат сетей Петри на примере задачи обедающих философов,
+реализовать классическую и модифицированную модель с арбитром, выполнить
+стохастическое и детерминированное моделирование, получить графики,
+таблицы результатов и производные literate-артефакты.</p>
+<h1 id="задание">Задание</h1>
+<ol type="1">
+<li>Создать рабочий каталог лабораторной работы.</li>
+<li>Реализовать сеть Петри для задачи обедающих философов.</li>
+<li>Выполнить базовый эксперимент для классической сети и сети с
+арбитром.</li>
+<li>Построить анимацию изменения маркировки.</li>
+<li>Выполнить параметрическое исследование по <code>N</code>,
+<code>tmax</code> и <code>seed</code>.</li>
+<li>Подготовить literate-версии скриптов и получить <code>clean</code>,
+<code>md</code>, <code>ipynb</code>, <code>qmd</code>.</li>
+<li>Подготовить итоговый отчёт и презентацию.</li>
+</ol>
+<h1 id="теоретическое-введение">Теоретическое введение</h1>
+<h2 id="сети-петри">Сети Петри</h2>
+<p>Сеть Петри представляет собой двудольный ориентированный граф,
+состоящий из позиций, переходов, дуг и маркировки <span class="citation"
+data-cites="peterson1981">(Peterson 1981 г.)</span>. Позиции описывают
+состояния системы, переходы моделируют события, а маркировка задаёт
+текущее распределение фишек по позициям. Такой аппарат особенно удобен
+для описания параллелизма, синхронизации и конкуренции за ресурсы.</p>
+<p>В данной работе сеть Петри используется для моделирования совместного
+доступа нескольких процессов к ограниченному набору ресурсов.
+Стохастическая часть моделирования опирается на идею выбора следующего
+события по интенсивностям переходов <span class="citation"
+data-cites="gillespie1977">(Gillespie 1977 г.)</span>.</p>
+<h2 id="задача-обедающих-философов">Задача обедающих философов</h2>
+<p>В классической постановке за круглым столом находятся <code>N</code>
+философов и <code>N</code> вилок <span class="citation"
+data-cites="dijkstra1965">(Dijkstra 1965 г.)</span>. Каждый философ
+переходит между состояниями <code>Think</code>, <code>Hungry</code> и
+<code>Eat</code>. Чтобы перейти к приёму пищи, философ должен захватить
+две соседние вилки. Если все философы одновременно берут по одной вилке,
+возникает взаимная блокировка: система замирает, и ни один философ не
+может завершить захват ресурсов.</p>
+<p>Для устранения <code>deadlock</code> в работе используется
+модификация с арбитром: вводится дополнительная позиция
+<code>Arbiter</code> с <code>N-1</code> фишками. Это ограничивает число
+философов, которые одновременно пытаются захватить ресурсы, и
+предотвращает тупиковую конфигурацию.</p>
+<h2 id="используемые-инструменты">Используемые инструменты</h2>
+<p>В работе использовались:</p>
+<ul>
+<li>Julia как язык реализации модели <span class="citation"
+data-cites="bezanson2017">(Bezanson и др. 2017 г.)</span>;</li>
+<li><code>OrdinaryDiffEq.jl</code> для численного решения
+детерминированной версии модели <span class="citation"
+data-cites="ordinarydiffeq2024">(SciML contributors 2024
+г.)</span>;</li>
+<li><code>Plots.jl</code> для построения графиков и GIF-анимации;</li>
+<li><code>CSV.jl</code> и <code>DataFrames.jl</code> для сохранения и
+анализа результатов;</li>
+<li><code>Literate.jl</code> для генерации <code>clean</code>,
+<code>md</code>, <code>ipynb</code> и <code>qmd</code> представлений
+<span class="citation" data-cites="literate2024">(<span
+class="nocase">Ekre и contributors</span> 2024 г.)</span>.</li>
+</ul>
+<h2 id="литературное-программирование">Литературное
+программирование</h2>
+<p>Подход литературного программирования позволяет хранить код и
+поясняющий текст в одном источнике <span class="citation"
+data-cites="knuth1984">(Knuth 1984 г.)</span>. В лабораторной работе это
+использовано для четырёх сценариев:</p>
+<ul>
+<li>базовый эксперимент;</li>
+<li>построение анимации;</li>
+<li>итоговый сравнительный график;</li>
+<li>параметрическое исследование.</li>
+</ul>
+<p>Из каждого <code>*_literate.jl</code>-файла автоматически
+сгенерированы четыре представления:</p>
+<ul>
+<li>исполняемый <code>clean</code>-скрипт;</li>
+<li>Markdown-документ;</li>
+<li>Jupyter notebook;</li>
+<li>Quarto-документ (<code>.qmd</code>).</li>
+</ul>
+<h1 id="выполнение-лабораторной-работы">Выполнение лабораторной
+работы</h1>
+<h2 id="подготовка-окружения">Подготовка окружения</h2>
+<p>В рабочем каталоге был создан Julia-проект с зависимостями
+<code>CSV</code>, <code>DataFrames</code>, <code>Plots</code>,
+<code>Literate</code> и <code>OrdinaryDiffEq</code>. В ходе подготовки
+были созданы каталоги:</p>
+<ul>
+<li><code>src/</code> для модулей и служебных функций;</li>
+<li><code>scripts/</code> для базовых и literate-сценариев;</li>
+<li><code>data/</code> для таблиц результатов;</li>
+<li><code>plots/</code> для графиков и анимации;</li>
+<li><code>generated/</code> для производных представлений
+literate-скриптов;</li>
+<li><code>report/</code> и <code>presentation/</code> для итоговых
+документов.</li>
+</ul>
+<h2 id="структура-файлов-лабораторной-работы">Структура файлов
+лабораторной работы</h2>
+<p>Основные файлы проекта:</p>
+<ul>
+<li><code>src/DiningPhilosophers.jl</code> — модуль модели сети
+Петри;</li>
+<li><code>src/Paths.jl</code> — локальные хелперы путей проекта;</li>
+<li><code>scripts/dining_philosophers.jl</code> — базовый
+эксперимент;</li>
+<li><code>scripts/dining_philosophers_animation.jl</code> — генерация
+GIF;</li>
+<li><code>scripts/dining_philosophers_report.jl</code> — итоговый
+сравнительный график;</li>
+<li><code>scripts/dining_philosophers_params.jl</code> — параметрическое
+исследование;</li>
+<li><code>scripts/*_literate.jl</code> — literate-версии сценариев;</li>
+<li><code>scripts/generate_literate.jl</code> — генератор
+<code>clean/md/ipynb/qmd</code>.</li>
+</ul>
+<h2 id="описание-модели-и-модуля-diningphilosophers.jl">Описание модели
+и модуля <code>DiningPhilosophers.jl</code></h2>
+<p>Модуль содержит:</p>
+<ul>
+<li>структуру <code>PetriNet</code> с матрицами <code>pre</code>,
+<code>post</code> и <code>incidence</code>;</li>
+<li>генерацию классической сети и сети с арбитром;</li>
+<li>детерминированную модель на системе ОДУ;</li>
+<li>стохастическую симуляцию по схеме дискретных событий;</li>
+<li>проверку наличия <code>deadlock</code>;</li>
+<li>функции построения графиков и сводных показателей.</li>
+</ul>
+<p>Ключевая идея модели состоит в том, что каждое действие философа
+представлено переходом, а вилки и состояния философов представлены
+позициями. Для классической сети это приводит к тупиковой маркировке,
+когда все фишки переходят в позиции <code>Hungry_i</code>, а все позиции
+<code>Fork_i</code> оказываются пустыми.</p>
+<p>Ниже приведён фрагмент основного модуля:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode julia"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">simulate_stochastic</span>(net<span class="op">::</span><span class="dt">PetriNet</span>, u0<span class="op">::</span><span class="dt">Vector{Int}</span>, tmax<span class="op">::</span><span class="dt">Real</span>;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                             seed<span class="op">::</span><span class="dt">Integer </span><span class="op">=</span> <span class="fl">123</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                             rng<span class="op">::</span><span class="dt">Union{Nothing, SimpleRNG} </span><span class="op">=</span> <span class="cn">nothing</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                             max_events<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">10_000</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">===</span> <span class="cn">nothing</span> <span class="op">&amp;&amp;</span> (rng <span class="op">=</span> <span class="fu">SimpleRNG</span>(seed))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    time <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    marking <span class="op">=</span> <span class="fu">copy</span>(u0)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> <span class="fu">Vector</span><span class="dt">{Dict{Symbol, Any}}</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(rows, <span class="fu">snapshot_row</span>(time, net.place_names, marking))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
+<h2 id="базовый-эксперимент-scriptsdining_philosophers.jl">Базовый
+эксперимент: <code>scripts/dining_philosophers.jl</code></h2>
+<p>Базовый сценарий запускает две сети при <code>N = 5</code> и
+<code>tmax = 50.0</code>:</p>
+<ul>
+<li>классическую сеть без арбитра;</li>
+<li>сеть Петри с арбитром.</li>
+</ul>
+<p>Кроме стохастического прогона сценарий строит детерминированные
+траектории и сохраняет результаты в CSV.</p>
+<h3 id="результаты-для-классической-сети">Результаты для классической
+сети</h3>
+<p>Сводка базового прогона:</p>
+<ul>
+<li><code>deadlock = true</code>;</li>
+<li>число зафиксированных состояний: <code>9</code>;</li>
+<li>итоговое число голодных философов: <code>5</code>;</li>
+<li>итоговое число философов в состоянии <code>Eat</code>:
+<code>0</code>.</li>
+</ul>
+<p>Последняя строка <code>data/dining_classic.csv</code> имеет вид:</p>
+<pre class="text"><code>time = 2.2667654750828707
+Hungry_1 = Hungry_2 = Hungry_3 = Hungry_4 = Hungry_5 = 1
+Eat_1 = Eat_2 = Eat_3 = Eat_4 = Eat_5 = 0
+Fork_1 = Fork_2 = Fork_3 = Fork_4 = Fork_5 = 0</code></pre>
+<p>Это и есть тупиковая конфигурация.</p>
+<figure>
+<img src="../plots/classic_simulation.png"
+alt="График эволюции маркировки для классической сети" />
+<figcaption aria-hidden="true">График эволюции маркировки для
+классической сети</figcaption>
+</figure>
+<h3 id="результаты-для-сети-с-арбитром">Результаты для сети с
+арбитром</h3>
+<p>Для модифицированной сети получено:</p>
+<ul>
+<li><code>deadlock = false</code>;</li>
+<li>число зафиксированных состояний: <code>76</code>;</li>
+<li>итоговое число голодных философов: <code>3</code>;</li>
+<li>итоговое число философов в состоянии <code>Eat</code>:
+<code>1</code>.</li>
+</ul>
+<p>Последняя строка <code>data/dining_arbiter.csv</code> соответствует
+времени <code>t = 50.0</code> и показывает, что хотя часть философов
+остаётся голодной, сеть не теряет живость: как минимум один философ
+находится в состоянии <code>Eat</code>, а позиция <code>Arbiter</code>
+продолжает управлять доступом к ресурсу.</p>
+<figure>
+<img src="../plots/arbiter_simulation.png"
+alt="График эволюции маркировки для сети с арбитром" />
+<figcaption aria-hidden="true">График эволюции маркировки для сети с
+арбитром</figcaption>
+</figure>
+<h3 id="детерминированные-траектории">Детерминированные траектории</h3>
+<p>Детерминированная версия модели демонстрирует ту же тенденцию:
+классическая сеть быстро деградирует к состояниям ожидания, тогда как
+сеть с арбитром сохраняет активность на всём интервале времени.</p>
+<figure>
+<img src="../plots/classic_deterministic.png"
+alt="Классическая детерминированная модель" />
+<figcaption aria-hidden="true">Классическая детерминированная
+модель</figcaption>
+</figure>
+<figure>
+<img src="../plots/arbiter_deterministic.png"
+alt="Детерминированная модель с арбитром" />
+<figcaption aria-hidden="true">Детерминированная модель с
+арбитром</figcaption>
+</figure>
+<h3 id="фрагменты-csv-и-производные-форматы">Фрагменты CSV и производные
+форматы</h3>
+<p>Фрагмент <code>dining_classic.csv</code>:</p>
+<pre class="text"><code>8×21 DataFrame
+ Row │ Fork_3  Think_5  Eat_4  Hungry_4  Think_4  Think_2  Hungry_5  time      Hungry_1  Hungry_3  Eat_3  Eat_1  Fork_1  Think_3  Hungry_2  Eat_5  Fork_5  Fork_2  Fork_4  Think_1  Eat_2
+   1 │      1        1      0         0        1        1         0  0.0              0         0      0      0       1        1         0      0       1       1       1        1      0
+   2 │      1        1      0         0        1        0         0  0.13339          0         0      0      0       1        1         1      0       1       0       1        1      0</code></pre>
+<p>Фрагмент <code>dining_arbiter.csv</code>:</p>
+<pre class="text"><code>8×22 DataFrame
+ Row │ Fork_3  Think_5  Eat_4  Hungry_4  Think_4  Think_2  Hungry_5  time       Hungry_1  Hungry_3  Eat_3  Arbiter  Eat_1  Fork_1  Think_3  Hungry_2  Eat_5  Fork_5  Fork_2  Fork_4  Think_1  Eat_2
+   1 │      1        1      0         0        1        1         0  0.0               0         0      0        4      0       1        1         0      0       1       1       1        1      0
+   2 │      1        1      0         0        1        0         0  0.0333475         0         0      0        3      0       1        1         1      0       1       0       1        1      0</code></pre>
+<p>Для базового сценария были сгенерированы:</p>
+<ul>
+<li><code>generated/clean/dining_philosophers_literate.jl</code>;</li>
+<li><code>generated/md/dining_philosophers_literate.md</code>;</li>
+<li><code>generated/notebooks/dining_philosophers_literate.ipynb</code>;</li>
+<li><code>generated/qmd/dining_philosophers_literate.qmd</code>.</li>
+</ul>
+<h2
+id="анимация-процесса-scriptsdining_philosophers_animation.jl">Анимация
+процесса: <code>scripts/dining_philosophers_animation.jl</code></h2>
+<p>Сценарий анимации последовательно проходит по строкам таблицы
+<code>data/dining_arbiter.csv</code> и строит GIF, показывающий
+изменение маркировки сети Петри во времени.</p>
+<p>Результат сохранён в файле
+<code>plots/philosophers_simulation.gif</code>.</p>
+<p>Для сценария анимации также были получены <code>clean</code>,
+<code>md</code>, <code>ipynb</code> и <code>qmd</code>
+представления:</p>
+<ul>
+<li><code>generated/clean/dining_philosophers_animation_literate.jl</code>;</li>
+<li><code>generated/md/dining_philosophers_animation_literate.md</code>;</li>
+<li><code>generated/notebooks/dining_philosophers_animation_literate.ipynb</code>;</li>
+<li><code>generated/qmd/dining_philosophers_animation_literate.qmd</code>.</li>
+</ul>
+<h2
+id="итоговый-сравнительный-график-scriptsdining_philosophers_report.jl">Итоговый
+сравнительный график:
+<code>scripts/dining_philosophers_report.jl</code></h2>
+<p>Этот сценарий повторно использует сохранённые CSV-файлы и строит
+сводный график по состояниям <code>Eat_i</code>.</p>
+<figure>
+<img src="../plots/final_report.png"
+alt="Итоговый сравнительный график состояний Eat_i" />
+<figcaption aria-hidden="true">Итоговый сравнительный график состояний
+Eat_i</figcaption>
+</figure>
+<p>По верхней панели видно, что в классической сети все кривые
+<code>Eat_i</code> быстро уходят к нулю и остаются там. На нижней панели
+сети с арбитром состояния <code>Eat_i</code> продолжают появляться до
+конца моделирования, что подтверждает отсутствие
+<code>deadlock</code>.</p>
+<p>Для сценария сравнительного отчёта были получены:</p>
+<ul>
+<li><code>generated/clean/dining_philosophers_report_literate.jl</code>;</li>
+<li><code>generated/md/dining_philosophers_report_literate.md</code>;</li>
+<li><code>generated/notebooks/dining_philosophers_report_literate.ipynb</code>;</li>
+<li><code>generated/qmd/dining_philosophers_report_literate.qmd</code>.</li>
+</ul>
+<h2
+id="параметрическое-исследование-scriptsdining_philosophers_params.jl">Параметрическое
+исследование: <code>scripts/dining_philosophers_params.jl</code></h2>
+<p>Параметрический сценарий перебирает:</p>
+<ul>
+<li><code>N ∈ {3, 5, 7}</code>;</li>
+<li><code>tmax ∈ {30.0, 50.0, 80.0}</code>;</li>
+<li><code>seed ∈ {123, 124, 125}</code>;</li>
+<li><code>network ∈ {classic, arbiter}</code>.</li>
+</ul>
+<p>Итого было выполнено <code>54</code> прогона.</p>
+<p>Фрагмент таблицы <code>data/dining_params.csv</code>:</p>
+<pre class="text"><code>12×8 DataFrame
+ Row │ network  N      tmax     seed   deadlock  events  final_hungry  final_eat
+   1 │ classic      3     30.0    123      true       4             3          0
+   2 │ classic      3     30.0    124      true       4             3          0
+   3 │ classic      3     30.0    125      true       4             3          0
+  10 │ classic      5     30.0    123      true       9             5          0
+  11 │ classic      5     30.0    124      true      30             5          0
+  12 │ classic      5     30.0    125      true       6             5          0</code></pre>
+<p>Итог по сериям запусков:</p>
+<ul>
+<li>для <code>classic</code> <code>deadlock_rate = 1.0</code>
+(<code>27</code> тупиковых запусков из <code>27</code>);</li>
+<li>для <code>arbiter</code> <code>deadlock_rate = 0.0</code>
+(<code>0</code> тупиковых запусков из <code>27</code>).</li>
+</ul>
+<figure>
+<img src="../plots/dining_params.png"
+alt="График параметрического исследования" />
+<figcaption aria-hidden="true">График параметрического
+исследования</figcaption>
+</figure>
+<p>Производные форматы параметрического сценария:</p>
+<ul>
+<li><code>generated/clean/dining_philosophers_params_literate.jl</code>;</li>
+<li><code>generated/md/dining_philosophers_params_literate.md</code>;</li>
+<li><code>generated/notebooks/dining_philosophers_params_literate.ipynb</code>;</li>
+<li><code>generated/qmd/dining_philosophers_params_literate.qmd</code>.</li>
+</ul>
+<h2 id="общий-вывод-по-результатам-моделирования">Общий вывод по
+результатам моделирования</h2>
+<p>Полученные артефакты согласуются между собой:</p>
+<ul>
+<li><code>data/dining_classic.csv</code> показывает переход классической
+сети в <code>deadlock</code>;</li>
+<li><code>data/dining_arbiter.csv</code> показывает сохранение живости
+до <code>t = 50.0</code>;</li>
+<li><code>plots/final_report.png</code> наглядно сравнивает поведение
+состояний <code>Eat_i</code>;</li>
+<li><code>data/dining_params.csv</code> и
+<code>plots/dining_params.png</code> подтверждают устойчивость
+результата для всех проверенных параметров;</li>
+<li>literate-артефакты подтверждают воспроизводимость вычислительного
+конвейера.</li>
+</ul>
+<h1 id="выводы">Выводы</h1>
+<p>В лабораторной работе была реализована сеть Петри для задачи
+обедающих философов. Рассмотрены две постановки: классическая и
+модифицированная с арбитром. Выполнены стохастическое и
+детерминированное моделирование, построены графики эволюции маркировки,
+сохранены полные CSV-траектории, создана GIF-анимация и проведено
+параметрическое исследование.</p>
+<p>Базовый эксперимент показал, что классическая сеть приходит к
+тупиковой маркировке уже к моменту <code>t ≈ 2.27</code>, а сеть с
+арбитром сохраняет активность на всём интервале
+<code>t ∈ [0, 50]</code>. Параметрический анализ из <code>54</code>
+прогонов подтвердил устойчивость этого результата: классическая сеть
+блокировалась во всех <code>27</code> сериях, сеть с арбитром — ни в
+одной.</p>
+<h1 class="unnumbered" id="список-литературы">Список литературы</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-bezanson2017" class="csl-entry" role="listitem">
+Bezanson, Jeff, Alan Edelman, Stefan Karpinski, и Viral B. Shah. 2017 г.
+<span>«Julia: A Fresh Approach to Numerical Computing»</span>. <em>SIAM
+Review</em> 59 (1): 65–98. <a
+href="https://doi.org/10.1137/141000671">https://doi.org/10.1137/141000671</a>.
+</div>
+<div id="ref-dijkstra1965" class="csl-entry" role="listitem">
+Dijkstra, Edsger W. 1965 г. <em>Dining Philosophers problem</em>.
+</div>
+<div id="ref-literate2024" class="csl-entry" role="listitem">
+<span class="nocase">Ekre, Fredrik, и contributors</span>. 2024 г.
+<em>Literate.jl Documentation</em>. <a
+href="https://fredrikekre.github.io/Literate.jl/v2/">https://fredrikekre.github.io/Literate.jl/v2/</a>.
+</div>
+<div id="ref-gillespie1977" class="csl-entry" role="listitem">
+Gillespie, Daniel T. 1977 г. <span>«Exact Stochastic Simulation of
+Coupled Chemical Reactions»</span>. <em>The Journal of Physical
+Chemistry</em> 81 (25): 2340–61. <a
+href="https://doi.org/10.1021/j100540a008">https://doi.org/10.1021/j100540a008</a>.
+</div>
+<div id="ref-knuth1984" class="csl-entry" role="listitem">
+Knuth, Donald E. 1984 г. <span>«Literate Programming»</span>. <em>The
+Computer Journal</em> 27 (2): 97–111. <a
+href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
+</div>
+<div id="ref-peterson1981" class="csl-entry" role="listitem">
+Peterson, James L. 1981 г. <em>Petri Net Theory and the Modeling of
+Systems</em>. Prentice Hall.
+</div>
+<div id="ref-ordinarydiffeq2024" class="csl-entry" role="listitem">
+SciML contributors. 2024 г. <em>OrdinaryDiffEq.jl Documentation</em>. <a
+href="https://docs.sciml.ai/OrdinaryDiffEq/stable/">https://docs.sciml.ai/OrdinaryDiffEq/stable/</a>.
+</div>
+</div>
+</body>
+</html>

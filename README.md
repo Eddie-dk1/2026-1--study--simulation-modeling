@@ -1,38 +1,37 @@
-# 🔗 Ссылки по лабораторной работе №4
+# Имитационное моделирование
 
-## 👤 Студент
+Репозиторий курса по дисциплине «Имитационное моделирование».
+
+## Студент
 
 - ФИО: **Гашимов Кенан Мухтар оглы**
 - Группа: **НКНбд-01-23**
 - Студенческий билет: **1032235820**
 
-## 🧑‍💻 GitHub
+## Репозитории
 
-- [Основной репозиторий курса](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling)
-- [Директория лабораторной работы №4](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/tree/main/labs/lab04)
-- [Релиз лабораторной работы №4](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab04)
-- [ChangeLog (история коммитов)](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/commits/main)
+- GitHub: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling>
+- GitVerse: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling>
 
-## 🌍 GitVerse
+## Лабораторные работы
 
-- [Основной репозиторий курса](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling)
-- [Директория лабораторной работы №4](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/content/main/labs/lab04)
-- [Релиз лабораторной работы №4](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab04)
-- [ChangeLog (история коммитов)](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/commits/main)
+- [Лабораторная работа №4](./labs/lab04/README.md)
+- [Лабораторная работа №5](./labs/lab05/README.md)
 
-## 📺 Видео
+## Структура
 
-- VK Video (плейлист): https://vkvideo.ru/playlist/-236906473_1/video-236906473_456239019?linked=1
-- VK Video (выполнение): https://vkvideo.ru/video-236906473_456239019?list=ln-ThHskPk8rN3Bj8lX7z
-- VK Video (отчёт и презентация): https://vkvideo.ru/video-236906473_456239020
-- RuTube (плейлист): https://rutube.ru/plst/1570916
-- RuTube (выполнение): https://rutube.ru/video/e230a97c778dc4380eed8aa6b6c7dec8/
-- RuTube (отчёт и презентация): https://rutube.ru/video/ca906f162368016d3336242a0c0f068e/
+- `labs/lab04` — материалы ЛР4
+- `labs/lab05` — материалы ЛР5
+- `simulation-modeling-lab.pdf` — общий методический файл
+- `check-list.md` — чек-лист для загрузки в LMS
 
-## 📦 Состав ЛР4
+## Лабораторная работа №5
 
-- `labs/lab04/lab_04_agents_SIR` — код и эксперименты
-- `labs/lab04/report` — отчёт
-- `labs/lab04/presentation` — презентация
-- `labs/lab04/release` — файлы для публикации
-- `labs/lab04/sources` — исходные материалы
+В `labs/lab05` размещены:
+
+- проект с реализацией сетей Петри для задачи обедающих философов;
+- данные моделирования, графики и GIF-анимация;
+- отчёт в `md/docx/pdf`;
+- презентация в `md/html/pdf`;
+- literate-артефакты `clean/md/ipynb/qmd`;
+- архив исходных материалов для релиза.

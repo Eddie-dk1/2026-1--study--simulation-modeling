@@ -1,0 +1,98 @@
+# Parameter study
+
+The parameter study repeats the stochastic simulation for different
+values of `N`, `tmax` and random seeds. The goal is to check whether
+the deadlock conclusion is stable under small changes in the setup.
+
+```{julia}
+ENV["GKSwstype"] = "100"
+
+using CSV
+using DataFrames
+using Plots
+using Statistics
+
+include(joinpath(@__DIR__, "..", "src", "Paths.jl"))
+include(Paths.srcdir("DiningPhilosophers.jl"))
+using .Paths
+using .DiningPhilosophers
+```
+
+## Single run
+
+The same helper is used for both network variants.
+
+```{julia}
+function run_case(network::Symbol, n::Int, tmax::Float64, seed::Int)
+    net, u0, _ = network == :classic ? build_classical_network(n) : build_arbiter_network(n)
+    df = simulate_stochastic(net, u0, tmax; seed = seed)
+    summary = summarize_run(df, net, n)
+    return (
+        network = String(network),
+        N = n,
+        tmax = tmax,
+        seed = seed,
+        deadlock = summary.deadlock,
+        events = summary.events,
+        final_hungry = summary.final_hungry,
+        final_eat = summary.final_eat,
+    )
+end
+```
+
+## Aggregation and plotting
+
+The final plot uses the average deadlock rate over seeds for each
+parameter combination.
+
+```{julia}
+function build_plot(df::DataFrame)
+    grouped = combine(groupby(df, [:network, :N, :tmax]), :deadlock => mean => :deadlock_rate)
+    grouped.label = ["$(row.network), N=$(row.N), t=$(Int(row.tmax))" for row in eachrow(grouped)]
+
+    return bar(
+        grouped.label,
+        grouped.deadlock_rate;
+        group = grouped.network,
+        title = "Deadlock rate by parameter set",
+        xlabel = "Series",
+        ylabel = "deadlock rate",
+        ylim = (0, 1.05),
+        xrotation = 60,
+        size = (1400, 800),
+        legend = :topright,
+    )
+end
+
+function main()
+    mkpath(datadir())
+    mkpath(datadir("previews"))
+    mkpath(plotsdir())
+
+    n_values = [3, 5, 7]
+    tmax_values = [30.0, 50.0, 80.0]
+    seeds = [123, 124, 125]
+
+    rows = NamedTuple[]
+    for network in (:classic, :arbiter), n in n_values, tmax in tmax_values, seed in seeds
+        push!(rows, run_case(network, n, tmax, seed))
+    end
+
+    results = DataFrame(rows)
+    CSV.write(datadir("dining_params.csv"), results)
+    save_dataframe_preview(datadir("previews", "dining_params_preview.txt"), results; rows = 12)
+
+    figure = build_plot(results)
+    savefig(figure, plotsdir("dining_params.png"))
+
+    println("Parameter study saved to $(datadir("dining_params.csv"))")
+    println("Plot saved to $(plotsdir("dining_params.png"))")
+end
+
+main()
+```
+
+---
+
+*This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*
+

@@ -1,0 +1,16 @@
+12×8 DataFrame
+ Row │ network  N      tmax     seed   deadlock  events  final_hungry  final_eat
+     │ String   Int64  Float64  Int64  Bool      Int64   Int64         Int64
+─────┼───────────────────────────────────────────────────────────────────────────
+   1 │ classic      3     30.0    123      true       4             3          0
+   2 │ classic      3     30.0    124      true       4             3          0
+   3 │ classic      3     30.0    125      true       4             3          0
+   4 │ classic      3     50.0    123      true       4             3          0
+   5 │ classic      3     50.0    124      true       4             3          0
+   6 │ classic      3     50.0    125      true       4             3          0
+   7 │ classic      3     80.0    123      true       4             3          0
+   8 │ classic      3     80.0    124      true       4             3          0
+   9 │ classic      3     80.0    125      true       4             3          0
+  10 │ classic      5     30.0    123      true       9             5          0
+  11 │ classic      5     30.0    124      true      30             5          0
+  12 │ classic      5     30.0    125      true       6             5          0
