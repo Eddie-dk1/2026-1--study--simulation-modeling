@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Гашимов Кенан Мухтар оглы, НКНбд-01-23" />
+  <meta name="dcterms.date" content="2026-05-16" />
+  <title>Имитационное моделирование</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Имитационное моделирование</h1>
+<p class="subtitle">Лабораторная работа №7. Дискретно-событийное
+моделирование</p>
+<p class="author">Гашимов Кенан Мухтар оглы, НКНбд-01-23</p>
+<p class="date">2026-05-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="цель-работы">Цель работы</h1>
+<p>Изучить дискретно-событийное моделирование на примере системы
+массового обслуживания <code>M/M/c</code> и модели Росса с резервом и
+ремонтом, перенести расчёты в структуру DrWatson, добавить графики,
+параметрические прогоны, литературный код и производные документы.</p>
+<h1 id="задание">Задание</h1>
+<ol type="1">
+<li>Создать рабочий каталог для кода.</li>
+<li>Установить необходимые Julia-пакеты.</li>
+<li>Выполнить предложенный код и преобразовать его в литературный
+стиль.</li>
+<li>Сгенерировать чистый код, Jupyter notebook и
+Quarto-документацию.</li>
+<li>Для <code>M/M/c</code> добавить графики и сравнить с аналитическими
+характеристиками.</li>
+<li>Для модели Росса добавить нескольких ремонтников, выполнить прогоны
+для разного количества машин, построить мониторинг ремонтника и очереди,
+сравнить с аналитическим решением.</li>
+<li>Подготовить отчёт, презентацию и релизные файлы.</li>
+</ol>
+<h1 id="структура-проекта">Структура проекта</h1>
+<ul>
+<li><code>Project.toml</code>, <code>Manifest.toml</code> —
+Julia-окружение.</li>
+<li><code>src/SimulationModelingLab07.jl</code> — функции имитации и
+аналитики.</li>
+<li><code>scripts/mmc_literate.jl</code>,
+<code>scripts/ross_literate.jl</code>,
+<code>scripts/params_literate.jl</code> — литературный код.</li>
+<li><code>generated/clean</code>, <code>generated/md</code>,
+<code>generated/notebooks</code>, <code>generated/qmd</code> —
+производные literate-артефакты.</li>
+<li><code>data/</code> — CSV-таблицы с результатами.</li>
+<li><code>plots/</code> — графики.</li>
+<li><code>report/</code>, <code>presentation/</code>,
+<code>deliverables/</code> — итоговые материалы.</li>
+</ul>
+<h1 id="модель-mmc">Модель M/M/c</h1>
+<p>Модель <code>M/M/c</code> описывает очередь с пуассоновским входящим
+потоком, экспоненциальным временем обслуживания и <code>c</code>
+параллельными каналами <span class="citation"
+data-cites="kleinrock1975">[@kleinrock1975]</span>. В базовом
+эксперименте использованы параметры <code>lambda = 0.9</code>,
+<code>mu = 0.5</code>, <code>c = 2</code>, что даёт загрузку
+<code>rho = 0.900</code>.</p>
+<p>Аналитические значения рассчитаны по формуле Эрланга C: вероятность
+ожидания <code>Pwait = 0.853</code>, среднее число заявок в очереди
+<code>Lq = 7.674</code>, среднее ожидание <code>Wq = 8.526</code>,
+среднее время в системе <code>W = 10.526</code>.</p>
+<p>Имитация для <code>10000</code> заявок дала вероятность ожидания
+<code>0.844</code>, <code>Wq = 7.905</code>, <code>W = 9.869</code>,
+<code>Lq = 7.185</code>. Отличие связано с конечной длиной прогона и
+высокой загрузкой <code>rho = 0.9</code>, при которой дисперсия ожидания
+заметна.</p>
+<figure>
+<img src="../plots/mmc_trace.png" alt="Динамика очереди M/M/c" />
+<figcaption aria-hidden="true">Динамика очереди M/M/c</figcaption>
+</figure>
+<figure>
+<img src="../plots/mmc_sweep_wq.png"
+alt="Параметрическое сравнение Wq" />
+<figcaption aria-hidden="true">Параметрическое сравнение Wq</figcaption>
+</figure>
+<h1 id="модель-росса">Модель Росса</h1>
+<p>Модель Росса рассматривает <code>N</code> работающих машин,
+<code>S</code> резервных машин и ремонтное устройство <span
+class="citation" data-cites="ross2014">[@ross2014]</span>. После отказа
+работающей машины резерв немедленно занимает её место. Если резерв пуст,
+следующий отказ приводит к падению системы. После ремонта машина
+возвращается в резерв.</p>
+<p>В реализации добавлена поддержка нескольких ремонтников. Состояние
+мониторинга содержит время события, число резервных машин, длину очереди
+ремонта, число занятых ремонтников и число исправных машин.</p>
+<p>Базовый прогон: <code>N = 10</code>, <code>S = 3</code>, ремонтников
+<code>1</code>. Падение произошло на времени <code>29185.5</code> ч.
+Загрузка ремонтника составила <code>0.103</code>, средняя длина очереди
+ремонта <code>0.012</code>.</p>
+<p>Для серии прогонов при тех же параметрах среднее время до падения
+равно <code>11718.3</code> ч, аналитическое ожидание —
+<code>12340.0</code> ч. Все 80 прогонов завершились падением, поэтому
+цензурирования в базовой серии нет.</p>
+<figure>
+<img src="../plots/ross_trace.png" alt="Мониторинг модели Росса" />
+<figcaption aria-hidden="true">Мониторинг модели Росса</figcaption>
+</figure>
+<h1 id="аналитическое-сравнение">Аналитическое сравнение</h1>
+<p>Для модели Росса решалась система линейных уравнений для средних
+времен достижения поглощающего состояния. Состояние задаётся числом
+исправных машин <code>i = N, ..., N + S</code>. При отказе происходит
+переход <code>i -&gt; i - 1</code> с интенсивностью
+<code>N / failure_mean</code>; при завершении ремонта — переход
+<code>i -&gt; i + 1</code> с интенсивностью
+<code>min(R, N + S - i) / repair_mean</code>.</p>
+<p>Параметрические результаты:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">ремонтников</th>
+<th style="text-align: right;">имитация, ч</th>
+<th style="text-align: right;">аналитика, ч</th>
+<th style="text-align: right;">загрузка</th>
+<th style="text-align: right;">очередь</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">27620.6</td>
+<td style="text-align: right;">28839.1</td>
+<td style="text-align: right;">0.079</td>
+<td style="text-align: right;">0.007</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">38204.6</td>
+<td style="text-align: right;">110206.2</td>
+<td style="text-align: right;">0.041</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">46135.1</td>
+<td style="text-align: right;">163096.9</td>
+<td style="text-align: right;">0.027</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14743.0</td>
+<td style="text-align: right;">12340.0</td>
+<td style="text-align: right;">0.098</td>
+<td style="text-align: right;">0.011</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">25707.9</td>
+<td style="text-align: right;">46540.0</td>
+<td style="text-align: right;">0.050</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">34984.9</td>
+<td style="text-align: right;">68640.0</td>
+<td style="text-align: right;">0.033</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5293.4</td>
+<td style="text-align: right;">6221.6</td>
+<td style="text-align: right;">0.129</td>
+<td style="text-align: right;">0.026</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">22066.6</td>
+<td style="text-align: right;">23142.9</td>
+<td style="text-align: right;">0.062</td>
+<td style="text-align: right;">0.002</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">23688.5</td>
+<td style="text-align: right;">34014.8</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3779.8</td>
+<td style="text-align: right;">3513.6</td>
+<td style="text-align: right;">0.135</td>
+<td style="text-align: right;">0.020</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">13725.8</td>
+<td style="text-align: right;">12882.6</td>
+<td style="text-align: right;">0.072</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">17952.5</td>
+<td style="text-align: right;">18868.6</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2003.1</td>
+<td style="text-align: right;">2156.3</td>
+<td style="text-align: right;">0.159</td>
+<td style="text-align: right;">0.031</td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7514.4</td>
+<td style="text-align: right;">7788.7</td>
+<td style="text-align: right;">0.081</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10376.6</td>
+<td style="text-align: right;">11367.8</td>
+<td style="text-align: right;">0.054</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="../plots/ross_crash_time.png" alt="Время до падения" />
+<figcaption aria-hidden="true">Время до падения</figcaption>
+</figure>
+<figure>
+<img src="../plots/ross_monitoring.png"
+alt="Мониторинг загрузки и очереди" />
+<figcaption aria-hidden="true">Мониторинг загрузки и
+очереди</figcaption>
+</figure>
+<h1 id="литературный-код-и-notebook">Литературный код и notebook</h1>
+<p>Из каждого literate-файла сгенерированы:</p>
+<ul>
+<li>чистый Julia-код в <code>generated/clean</code>;</li>
+<li>Markdown-документация в <code>generated/md</code>;</li>
+<li>Jupyter notebook в <code>generated/notebooks</code>;</li>
+<li>Quarto-документация в <code>generated/qmd</code>.</li>
+</ul>
+<p>Notebook-файлы выполнены через
+<code>scripts/execute_notebooks.py</code>: скрипт извлекает Julia-код из
+ячеек и запускает его в том же окружении проекта. Это фиксирует проверку
+исполняемости notebook без зависимости от установленного
+Jupyter/IJulia.</p>
+<h1 id="выводы">Выводы</h1>
+<p>Модель <code>M/M/c</code> реализована как дискретно-событийная
+система с календарём событий. Полученные оценки согласуются с формулами
+Эрланга C, а параметрический прогон показывает резкий рост ожидания при
+приближении загрузки к единице.</p>
+<p>Модель Росса реализована для одного и нескольких ремонтников.
+Увеличение числа ремонтников снижает загрузку каждого ремонтника и
+среднюю очередь ремонта, а аналитическое решение даёт ориентир для
+среднего времени до падения. При фиксированном резерве увеличение числа
+основных машин ускоряет падение системы, потому что суммарная
+интенсивность отказов растёт.</p>
+<h1 id="список-литературы">Список литературы</h1>
+</body>
+</html>

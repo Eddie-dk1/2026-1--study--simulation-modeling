@@ -1,0 +1,6 @@
+.DS_Store
+.julia_depot/
+.mplconfig/
+generated/tmp/
+*.log
+*.ji

@@ -1,0 +1,31 @@
+```@meta
+EditURL = "../../scripts/mmc_literate.jl"
+```
+
+# Модель M/M/c
+
+В этом сценарии выполняется дискретно-событийное моделирование очереди M/M/c и
+сравнение с аналитическими характеристиками стационарного режима.
+
+````@example mmc_literate
+using DrWatson
+@quickactivate "SimulationModelingLab07"
+
+include(srcdir("SimulationModelingLab07.jl"))
+using .SimulationModelingLab07
+````
+
+Параметры базовой модели совпадают с заданием: `lambda = 0.9`,
+`mu = 0.5`, `c = 2`.
+
+````@example mmc_literate
+customers, trace, summary, sweep = save_mmc_outputs(projectdir())
+
+println(summary)
+println(first(sweep, 8))
+````
+
+---
+
+*This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*
+

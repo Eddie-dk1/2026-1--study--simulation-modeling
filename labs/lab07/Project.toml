@@ -1,0 +1,21 @@
+name = "SimulationModelingLab07"
+uuid = "2ccf8c61-0c7f-4a0e-a1ed-3a44d2573a27"
+authors = ["Гашимов Кенан Мухтар оглы"]
+version = "0.7.0"
+
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
+Literate = "98b081ad-f1c9-55d3-8b20-4c87d4299306"
+StableRNGs = "860ef19b-820b-49d6-a774-d7a799459cd3"
+
+[compat]
+CSV = "0.10"
+DataFrames = "1"
+Distributions = "0.25"
+DrWatson = "2"
+Literate = "2"
+StableRNGs = "1"
+julia = "1.12"

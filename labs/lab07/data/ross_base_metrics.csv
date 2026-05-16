@@ -1,0 +1,2 @@
+N,S,repairers,seed,crash_time,crashed,repairer_utilization,average_repair_queue,average_good_machines,analytic_crash_time
+10,3,1,150,29185.53486290023,true,0.10260283011657474,0.01246007511942771,12.884937094763979,12339.99999999653

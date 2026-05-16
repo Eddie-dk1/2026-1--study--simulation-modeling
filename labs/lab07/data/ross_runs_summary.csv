@@ -1,0 +1,2 @@
+N,S,repairers,mean_crash_time,crash_share,mean_repairer_utilization,mean_repair_queue,mean_good_machines,analytic_crash_time
+10,3,1,11718.29269442694,1.0,0.10222196661231556,0.012254876722868983,12.885523156664814,12339.99999999653
