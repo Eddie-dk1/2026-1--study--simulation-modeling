@@ -11,6 +11,8 @@ from PIL import Image, ImageDraw, ImageFont
 PAGE = (1240, 1754)
 MARGIN = 90
 FONT_PATH = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
+ACCENT = (25, 76, 121)
+MUTED = (88, 96, 105)
 
 
 def font(size: int) -> ImageFont.FreeTypeFont:
@@ -38,7 +40,9 @@ def add_text_page(pages: list[Image.Image], title: str, lines: list[str]) -> Non
     body_font = font(24)
     y = MARGIN
     if title:
-        draw.text((MARGIN, y), title, fill="black", font=title_font)
+        draw.rectangle((0, 0, PAGE[0], 24), fill=ACCENT)
+        draw.text((MARGIN, y), title, fill=ACCENT, font=title_font)
+        draw.line((MARGIN, y + 46, PAGE[0] - MARGIN, y + 46), fill=(220, 226, 232), width=2)
         y += 58
     for line in lines:
         for wrapped in textwrap.wrap(line, width=82):
@@ -60,7 +64,8 @@ def add_image_page(pages: list[Image.Image], path: Path, caption: str) -> None:
     draw = ImageDraw.Draw(img)
     caption_font = font(26)
     body_font = font(22)
-    draw.text((MARGIN, MARGIN), caption or path.name, fill="black", font=caption_font)
+    draw.rectangle((0, 0, PAGE[0], 24), fill=ACCENT)
+    draw.text((MARGIN, MARGIN), caption or path.name, fill=ACCENT, font=caption_font)
     with Image.open(path) as source:
         source = source.convert("RGB")
         max_w = PAGE[0] - 2 * MARGIN
@@ -69,7 +74,64 @@ def add_image_page(pages: list[Image.Image], path: Path, caption: str) -> None:
         x = (PAGE[0] - source.width) // 2
         y = MARGIN + 70
         img.paste(source, (x, y))
-    draw.text((MARGIN, PAGE[1] - MARGIN + 15), str(path), fill="gray", font=body_font)
+    draw.text((MARGIN, PAGE[1] - MARGIN + 15), str(path), fill=MUTED, font=body_font)
+    pages.append(img)
+
+
+def parse_metadata(text: str) -> dict[str, str]:
+    metadata: dict[str, str] = {}
+    in_yaml = False
+    author_next = False
+    for raw in text.splitlines():
+        line = raw.strip()
+        if line == "---":
+            in_yaml = not in_yaml
+            continue
+        if not in_yaml:
+            continue
+        if line.startswith("title:"):
+            metadata["title"] = line.split(":", 1)[1].strip().strip('"')
+        elif line.startswith("subtitle:"):
+            metadata["subtitle"] = line.split(":", 1)[1].strip().strip('"')
+        elif line == "author:":
+            author_next = True
+        elif author_next and line.startswith("name:"):
+            metadata["author"] = line.split(":", 1)[1].strip().strip('"')
+            author_next = False
+    return metadata
+
+
+def add_cover_page(pages: list[Image.Image], metadata: dict[str, str], kind: str) -> None:
+    img = Image.new("RGB", PAGE, (248, 250, 252))
+    draw = ImageDraw.Draw(img)
+    title_font = font(48)
+    subtitle_font = font(30)
+    body_font = font(26)
+    small_font = font(22)
+
+    draw.rectangle((0, 0, PAGE[0], 180), fill=ACCENT)
+    draw.rectangle((MARGIN, 260, PAGE[0] - MARGIN, 1180), fill="white", outline=(224, 229, 235), width=2)
+    draw.text((MARGIN + 45, 315), metadata.get("title", "Лабораторная работа 8"), fill=ACCENT, font=title_font)
+    draw.text((MARGIN + 45, 390), metadata.get("subtitle", ""), fill=(33, 37, 41), font=subtitle_font)
+    draw.line((MARGIN + 45, 455, PAGE[0] - MARGIN - 45, 455), fill=(224, 229, 235), width=3)
+
+    rows = [
+        ("Тип документа", kind),
+        ("Автор", "Гашимов Кенан Мухтар оглы"),
+        ("Группа", "НКНбд-01-23"),
+        ("Студенческий билет", "1032235820"),
+        ("Дисциплина", "Имитационное моделирование"),
+        ("Организация", "РУДН имени Патриса Лумумбы"),
+        ("Город", "Москва"),
+        ("Год", "2026"),
+    ]
+    y = 535
+    for key, value in rows:
+        draw.text((MARGIN + 45, y), key, fill=MUTED, font=small_font)
+        draw.text((MARGIN + 360, y), value, fill=(20, 25, 31), font=body_font)
+        y += 58
+
+    draw.text((MARGIN, PAGE[1] - 130), "Дискретно-событийное имитационное моделирование SIR", fill=MUTED, font=small_font)
     pages.append(img)
 
 
@@ -78,8 +140,11 @@ def build_pdf(source: Path, output: Path) -> None:
     current_title = ""
     buffer: list[str] = []
     in_yaml = False
+    text = source.read_text(encoding="utf-8")
+    kind = "Презентация" if "presentation" in str(source) else "Отчёт"
+    add_cover_page(pages, parse_metadata(text), kind)
 
-    for raw in source.read_text(encoding="utf-8").splitlines():
+    for raw in text.splitlines():
         if raw.strip() == "---":
             in_yaml = not in_yaml
             continue
