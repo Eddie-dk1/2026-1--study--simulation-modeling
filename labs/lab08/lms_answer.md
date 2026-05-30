@@ -14,9 +14,9 @@
 
 ## Репозитории
 
-- [github](ССЫЛКА_GITHUB_РЕПОЗИТОРИЙ)
-  - [Релиз v1.0.0](ССЫЛКА_GITHUB_RELEASE_V1_0_0)
-- [gitverse](ССЫЛКА_GITVERSE_РЕПОЗИТОРИЙ)
-  - [Релиз v1.0.0](ССЫЛКА_GITVERSE_RELEASE_V1_0_0)
+- [github](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling)
+  - [Релиз lab08](https://github.com/Eddie-dk1/2026-1--study--simulation-modeling/releases/tag/lab08)
+- [gitverse](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling)
+  - [Тег lab08](https://gitverse.ru/Kenan/2026-1--study--simulation-modeling/releases/tag/lab08)
 
 К ответу прикрепляются отчёт PDF и презентация PDF. Остальные файлы размещаются в релизах репозиториев.
