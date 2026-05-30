@@ -1,0 +1,12 @@
+project:
+  title: "lab8-docs"
+  output-dir: "_output"
+
+lang: ru-RU
+toc: true
+number-sections: true
+format:
+  html:
+    self-contained: true
+  pdf:
+    documentclass: article
