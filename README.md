@@ -13,25 +13,4 @@
 - GitHub: <https://github.com/Eddie-dk1/2026-1--study--simulation-modeling>
 - GitVerse: <https://gitverse.ru/Kenan/2026-1--study--simulation-modeling>
 
-## Лабораторные работы
 
-- [Лабораторная работа №4](./labs/lab04/README.md)
-- [Лабораторная работа №5](./labs/lab05/README.md)
-
-## Структура
-
-- `labs/lab04` — материалы ЛР4
-- `labs/lab05` — материалы ЛР5
-- `simulation-modeling-lab.pdf` — общий методический файл
-- `check-list.md` — чек-лист для загрузки в LMS
-
-## Лабораторная работа №5
-
-В `labs/lab05` размещены:
-
-- проект с реализацией сетей Петри для задачи обедающих философов;
-- данные моделирования, графики и GIF-анимация;
-- отчёт в `md/docx/pdf`;
-- презентация в `md/html/pdf`;
-- literate-артефакты `clean/md/ipynb/qmd`;
-- архив исходных материалов для релиза.
